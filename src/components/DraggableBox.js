@@ -1,10 +1,11 @@
-import { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "./ItemTypes";
 import { getEmptyImage } from "react-dnd-html5-backend";
 import { Box } from "./Box";
 import PersonWalking from "../images/person_walking1.png";
 import { disableScroll, enableScroll } from "../commons";
+import PinchZoomPan from "./PinchZoomPan";
 
 function getStyles(left, top, isDragging) {
   const transform = `translate3d(${left}px, ${top}px, 0)`;
@@ -42,13 +43,9 @@ export const DraggableBox = memo(function DraggableBox(props) {
       style={getStyles(left, top, isDragging)}
       role="DraggableBox"
     >
-      {/* <Box title={title} /> */}
-      <img
-        src={PersonWalking}
-        style={{ width: 150 }}
-        onPointerDown={disableScroll}
-        onPointerUp={enableScroll}
-      />
+      <PinchZoomPan>
+        {(x, y, scale) => <img src={PersonWalking} style={{ width: 150 }} />}
+      </PinchZoomPan>
     </div>
   );
 });
