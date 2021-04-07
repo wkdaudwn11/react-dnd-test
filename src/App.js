@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { isMobile } from "react-device-detect"; // https://www.npmjs.com/package/react-device-detect
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
+import { DndProvider } from "react-dnd";
+import Example from "./components/Example";
 
-function App() {
+const App = () => {
+  const backend = isMobile ? TouchBackend : HTML5Backend;
+
+  React.useEffect(() => {
+    window.scrollTo(2500, 2500);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <DndProvider backend={backend}>
+        <Example />
+      </DndProvider>
     </div>
   );
-}
+};
 
 export default App;
